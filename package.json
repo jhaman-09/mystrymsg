@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@react-email/components": "^0.0.29",
+    "bcrypt": "^5.1.1",
+    "mongodb": "^6.11.0",
+    "mongoose": "^8.8.3",
     "next": "15.0.3",
     "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18",
-    "resend": "^4.0.1"
+    "resend": "^4.0.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
