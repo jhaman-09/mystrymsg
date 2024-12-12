@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-email/components": "^0.0.29",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.3",
     "next": "^15.0.3",
@@ -21,6 +22,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

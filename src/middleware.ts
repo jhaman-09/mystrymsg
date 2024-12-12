@@ -1,40 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import { default } from 'next-auth/middleware'
 import { getToken } from "next-auth/jwt";
+// import { default } from 'next-auth/middleware'
 
 
 export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request });
+  const url = request.nextUrl;
 
-    const token = await getToken({req : request})
-    const url = request.nextUrl
+  const publicRoutes = ["/sign-in", "/sign-up", "/verify", "/"];
 
-    if (token
-        && (url.pathname.startsWith("/sign-in"))
-        || (url.pathname.startsWith("/sign-up"))
-        || (url.pathname.startsWith("/verify"))
-        || (url.pathname.startsWith("/"))) {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+  const isPublicRoute = publicRoutes.some((route) =>
+    url.pathname.startsWith(route)
+  );
 
-    if (!token &&
-        url.pathname.startsWith('/dashboard')
-    ) {
-        return NextResponse.redirect(new URL('/sign-in',
-            request.url
-        ));
-    }
+  // Redirect authenticated users away from public routes
+  if (token && isPublicRoute) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
 
-    return NextResponse.next()
-}                                                                                             
+  // Redirect unauthenticated users away from protected routes
+  if (!token && url.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
+  }
 
+  return NextResponse.next();
+}
 
-// run middleware on these routes
+// Run middleware on specific routes
 export const config = {
-  matcher: [
-    '/sign-in',
-    '/sign-up',
-    '/',
-    '/dashboard/:path*',
-    '/verify/:path*'
-  ]
+  matcher: ["/sign-in", "/sign-up", "/", "/dashboard/:path*", "/verify/:path*"],
 };
