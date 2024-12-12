@@ -3,7 +3,7 @@ import { default } from 'next-auth/middleware'
 import { getToken } from "next-auth/jwt";
 
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
 
     const token = await getToken({req : request})
     const url = request.nextUrl
@@ -30,12 +30,11 @@ export function middleware(request: NextRequest) {
 
 // run middleware on these routes
 export const config = {
-    matcher: [
-        '/sign-in',
-        'sign-up',
-        "/",
-        "/dashboard/:path*",
-        "/verify/:path*"
-    ]
-        
-}
+  matcher: [
+    '/sign-in',
+    '/sign-up',
+    '/',
+    '/dashboard/:path*',
+    '/verify/:path*'
+  ]
+};
