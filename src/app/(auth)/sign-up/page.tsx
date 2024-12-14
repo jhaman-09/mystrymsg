@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/Link";
 import { useDebounceCallback } from "usehooks-ts";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { signUpSchema } from "@/Schema/signUpSchema";
+import { signUpSchema } from "@/Schema/signUpSchema"; 
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "../../../../types/ApiResponse";
 import {
@@ -21,14 +20,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
-const page = () => {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // it will reflect changes in username value after 300ms
+  // it will reflect changes in username value after 500ms
   const debounced = useDebounceCallback(setUsername, 500);
   const { toast } = useToast();
   const router = useRouter();
@@ -193,4 +193,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUp;

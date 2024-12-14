@@ -103,7 +103,7 @@ export async function GET() {
     return Response.json(
       {
         success: true,
-        isAcceptingMessage: foundUser.isAcceptingMessage,
+        isAcceptingMessages: foundUser.isAcceptingMessage,
         message:
           foundUser.isAcceptingMessage === true
             ? "User Accepting Messages"
