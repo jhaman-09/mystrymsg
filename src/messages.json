@@ -1,17 +1,68 @@
 [
-    {
-        "title" : "Message from User123",
-        "content" : "Hey, how are you doing today?",
-        "received" : "10 minutes ago"
-    },
-    {
-        "title" : "Message from SecretAdmirer",
-        "content" : "I really liked your recent post!",
-        "received" : "2 hours ago"
-    },
-    {
-        "title" : "Message from MysteryGuest",
-        "content" : "Do you have any book recommendations?",
-        "received" : "1 day ago"
-    }
+  {
+    "title": "Message from User123",
+    "content": "Hey, how are you doing today?",
+    "received": "10 minutes ago"
+  },
+  {
+    "title": "Message from SecretAdmirer",
+    "content": "I really liked your recent post!",
+    "received": "2 hours ago"
+  },
+  {
+    "title": "Message from MysteryGuest",
+    "content": "Do you have any book recommendations?",
+    "received": "1 day ago"
+  },
+
+  {
+    "title": "Message from Traveler101",
+    "content": "What’s your favorite place to visit?",
+    "received": "5 minutes ago"
+  },
+  {
+    "title": "Message from NightOwl",
+    "content": "I found this really cool article you might like!",
+    "received": "30 minutes ago"
+  },
+  {
+    "title": "Message from CodeMaster",
+    "content": "Can you help me debug this code?",
+    "received": "3 hours ago"
+  },
+  {
+    "title": "Message from FoodieFriend",
+    "content": "What’s your favorite dish to cook?",
+    "received": "4 hours ago"
+  },
+  {
+    "title": "Message from GameOn",
+    "content": "Up for a match tonight?",
+    "received": "6 hours ago"
+  },
+  {
+    "title": "Message from CuriousCat",
+    "content": "If you could have any superpower, what would it be?",
+    "received": "8 hours ago"
+  },
+  {
+    "title": "Message from NatureLover",
+    "content": "Do you enjoy hiking?",
+    "received": "12 hours ago"
+  },
+  {
+    "title": "Message from BookWorm",
+    "content": "Have you read anything interesting lately?",
+    "received": "1 day ago"
+  },
+  {
+    "title": "Message from MovieBuff",
+    "content": "What’s the best movie you’ve watched this year?",
+    "received": "2 days ago"
+  },
+  {
+    "title": "Message from TechGuru",
+    "content": "Have you checked out the new gadget trends?",
+    "received": "3 days ago"
+  }
 ]

@@ -18,14 +18,16 @@ const Navbar = () => {
         </a>
         {session ? (
           <>
-            <span className="mr-4">Welcome, {user?.username || user?.email}</span>
+            <span className="mr-4">
+              Welcome, {user?.username || user?.email}
+            </span>
             <Button className="w-full md:w-auto" onClick={() => signOut()}>
               Logout
             </Button>
           </>
         ) : (
           <>
-            <Link href="/sing-in">
+            <Link href="/sign-in">
               <Button className="w-full md:w-auto">Login</Button>
             </Link>
           </>

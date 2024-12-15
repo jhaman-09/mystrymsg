@@ -39,6 +39,9 @@ const Singin = () => {
       password: data.password,
     });
 
+    console.log(result);
+    
+
     if (result?.error) {
       if (result?.error === "CredentialsSignin") {
         toast({
@@ -56,9 +59,20 @@ const Singin = () => {
     }
 
     if (result?.url) {
+      toast({
+        title: "Login successful",
+        description: "Redirecting to your dashboard...",
+        variant: "default",
+      });
       router.replace("/dashboard");
+    } else {
+      console.error("No URL found for redirection.");
     }
   };
+
+
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -102,8 +116,13 @@ const Singin = () => {
                 </FormItem>
               )}
             />
-
-            <Button type="submit">Sign in</Button>
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              className="w-full"
+            >
+              {form.formState.isSubmitting ? "Signing in..." : "Sign in"}
+            </Button>{" "}
           </form>
         </Form>
 
