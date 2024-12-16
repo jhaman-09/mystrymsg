@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
           }
 
           // console.log("Mera user",user);
-          
 
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
@@ -56,7 +55,7 @@ export const authOptions: NextAuthOptions = {
         // console.log("JWT Callback - User:", user);
 
         // console.log("Tumhara user", user);
-        
+
         token._id = user._id?.toString();
         token.isVerified = user.isVerified;
         token.isAcceptingMessage = user.isAcceptingMessage;

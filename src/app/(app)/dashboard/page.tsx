@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApiResponse } from "../../../../types/ApiResponse";
-// import { User } from "next-auth";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
@@ -58,7 +57,7 @@ const Dashboard = () => {
     }
   }, [setValue, toast]);
 
-  const fetchMessages = useCallback(
+  const fetchAllMessages = useCallback(
     async (refresh: boolean = false) => {
       setIsLoading(true);
       setIsSwitchingLoading(false);
@@ -93,9 +92,9 @@ const Dashboard = () => {
       router.replace("/signin"); // Redirect to sign-in page if not logged in
       return;
     }
-    fetchMessages();
+    fetchAllMessages();
     fetchAcceptMessages();
-  }, [setValue, router, session, fetchAcceptMessages, fetchMessages]);
+  }, [setValue, router, session, fetchAcceptMessages, fetchAllMessages]);
 
   // Everytime I have change the isAcceptingMessage value so this will call and reflect changes..
   const handleAcceptMessageSwitchChange = async () => {
@@ -130,7 +129,7 @@ const Dashboard = () => {
 
   const { username } = session.user;
 
-  // url
+  // User url to message
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
 
@@ -178,7 +177,7 @@ const Dashboard = () => {
         variant="outline"
         onClick={(e) => {
           e.preventDefault();
-          fetchMessages(true);
+          fetchAllMessages(true);
         }}
       >
         {isLoading ? (

@@ -32,6 +32,7 @@ type MessageCardProp = {
 
 const MessageCard = ({ message, onMessageDelete }: MessageCardProp) => {
   const { toast } = useToast();
+  
   const handleDeleteConfirm = async () => {
     const res = await axios.delete(`/api/delete-message/${message._id}`);
     toast({

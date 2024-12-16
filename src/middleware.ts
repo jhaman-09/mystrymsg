@@ -49,29 +49,38 @@ export const config = {
 };
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET_KEY, // Ensure this matches across authOptions and middleware
-    raw: true, // Optional: Inspect the raw token
-  });
-
   const url = request.nextUrl;
 
-  // Redirect to dashboard if the user is already authenticated
-  // and trying to access sign-in, sign-up, or home page
-  if (
-    token &&
-    (url.pathname.startsWith("/sign-in") ||
-      url.pathname.startsWith("/sign-up") ||
-      url.pathname.startsWith("/verify") ||
-      url.pathname === "/")
-  ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
 
-  if (!token && url.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
-  }
 
-  return NextResponse.next();
+  try {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET_KEY, // Ensure this matches across authOptions and middleware
+      raw: true, // Optional: Inspect the raw token
+    });
+  
+  
+    // Redirect to dashboard if the user is already authenticated
+    // and trying to access sign-in, sign-up, or home page
+    if (
+      token &&
+      (url.pathname.startsWith("/sign-in") ||
+        url.pathname.startsWith("/sign-up") ||
+        url.pathname.startsWith("/verify") ||
+        url.pathname === "/")
+    ) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+  
+    if (!token && url.pathname.startsWith("/dashboard")) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+  
+    return NextResponse.next();
+  } catch (error) {
+     console.error("Error in middleware:", error);
+     return NextResponse.redirect(new URL("/sign-in", request.url));
+    
+  }
 }
