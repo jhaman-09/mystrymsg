@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       {
         success: true,
         message: "Message acceptance status updated successfully..",
-        data: UpdatedUser,
+        user: UpdatedUser,
       },
       { status: 200 }
     );
@@ -67,6 +67,10 @@ export async function POST(request: Request) {
     );
   }
 }
+
+
+
+
 
 export async function GET() {
   await dbConnect();
@@ -103,10 +107,10 @@ export async function GET() {
     return Response.json(
       {
         success: true,
-        isAcceptingMessages: foundUser.isAcceptingMessage,
+        isAcceptingMessage : foundUser.isAcceptingMessage,
         message:
           foundUser.isAcceptingMessage === true
-            ? "User Accepting Messages"
+            ? "User accepting messages"
             : "User not accepting messages..",
       },
       { status: 200 }

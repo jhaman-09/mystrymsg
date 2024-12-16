@@ -9,7 +9,10 @@ export async function GET() {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
-  if (!session || !session.user) {
+
+  const user: User = session?.user as User;
+
+  if (!session || !user) {
     return Response.json(
       {
         success: false,
@@ -19,17 +22,25 @@ export async function GET() {
     );
   }
 
-  const user: User = session?.user as User;
-
   const userId = new mongoose.Types.ObjectId(user._id);
 
   try {
     const foundUser = await UserModel.aggregate([
-      { $match: { id: userId } },
-      { $unwind: "$messages" },
-      { $sort: { "messages.createdAt": -1 } }, // -1 for decending and 1 for ascending
-      { $group: { _id: "$_id", messages: { $push: "$messages" } } },
-    ]);
+      //   { $match: { _id: userId } },
+      //   { $unwind: "$messages" },
+      //   { $sort: { "messages.createdAt": -1 } },
+      //   { $group: { _id: "$_id", messages: { $push: "$messages" } } },
+      // ]).exec();
+      { $match: { _id: userId } },
+      {
+        $project: {
+          _id: 1,
+          messages: { $slice: [{ $arrayElemAt: ["$messages", 0] }, -1] }, // replace slice limit the array
+        },
+      },
+      // No need to unwind and group here unless additional fields are calculated.
+    ]).exec();
+
 
     if (!foundUser || foundUser.length === 0) {
       return Response.json(
@@ -45,12 +56,15 @@ export async function GET() {
       {
         success: true,
         message: "User found..",
-        data: foundUser[0].messages,
+        messages: foundUser[0].messages,
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error("An unexpected error occured while getting messages..",error);
+    console.error(
+      "An unexpected error occured while getting messages..",
+      error
+    );
     return Response.json(
       {
         success: false,

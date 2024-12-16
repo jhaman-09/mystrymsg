@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
@@ -39,9 +40,6 @@ const Singin = () => {
       password: data.password,
     });
 
-    console.log(result);
-    
-
     if (result?.error) {
       if (result?.error === "CredentialsSignin") {
         toast({
@@ -69,10 +67,6 @@ const Singin = () => {
       console.error("No URL found for redirection.");
     }
   };
-
-
-
-
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
