@@ -51,7 +51,9 @@ export async function POST(request: Request) {
     return Response.json(
       {
         success: true,
-        message: "Message acceptance status updated successfully..",
+        message: UpdatedUser.isAcceptingMessage
+          ? "User is allowed to accept messages"
+          : "User is disabled from accepting messages",
         user: UpdatedUser,
       },
       { status: 200 }
@@ -67,10 +69,6 @@ export async function POST(request: Request) {
     );
   }
 }
-
-
-
-
 
 export async function GET() {
   await dbConnect();
@@ -107,7 +105,7 @@ export async function GET() {
     return Response.json(
       {
         success: true,
-        isAcceptingMessage : foundUser.isAcceptingMessage,
+        isAcceptingMessage: foundUser.isAcceptingMessage,
         message:
           foundUser.isAcceptingMessage === true
             ? "User accepting messages"

@@ -32,6 +32,9 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Please verify your account first..");
           }
 
+          // console.log("Mera user",user);
+          
+
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
             user.password
@@ -50,26 +53,28 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log("JWT Callback - User:", user);
+        // console.log("JWT Callback - User:", user);
 
+        // console.log("Tumhara user", user);
+        
         token._id = user._id?.toString();
         token.isVerified = user.isVerified;
-        token.isAcceptingMessages = user.isAcceptingMessages;
+        token.isAcceptingMessage = user.isAcceptingMessage;
         token.username = user.username;
       }
-      console.log("JWT Callback - Token:", token);
+      // console.log("JWT Callback - Token:", token);
 
       return token;
     },
     async session({ session, token }) {
-      console.log("Session Callback - Token:", token);
+      // console.log("Session Callback - Token:", token);
       if (token) {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
-        session.user.isAcceptingMessages = token.isAcceptingMessages;
+        session.user.isAcceptingMessage = token.isAcceptingMessage;
         session.user.username = token.username;
       }
-      console.log("Session Callback - Session:", session);
+      // console.log("Session Callback - Session:", session);
 
       return session;
     },

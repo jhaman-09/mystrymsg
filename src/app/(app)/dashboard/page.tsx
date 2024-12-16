@@ -38,13 +38,12 @@ const Dashboard = () => {
 
   const acceptMessages = watch("acceptMessages");
 
-
+  // This will work when first time user come to the dashpage and shows that user isAcceptingMessage
   const fetchAcceptMessages = useCallback(async () => {
     setIsSwitchingLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
       setValue("acceptMessages", response.data.isAcceptingMessage);
-      console.log("Acceptence message", response.data.isAcceptingMessage);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -57,9 +56,7 @@ const Dashboard = () => {
     } finally {
       setIsSwitchingLoading(false);
     }
-  }
-    ,
-    [setValue, toast]);
+  }, [setValue, toast]);
 
   const fetchMessages = useCallback(
     async (refresh: boolean = false) => {
@@ -100,6 +97,7 @@ const Dashboard = () => {
     fetchAcceptMessages();
   }, [setValue, router, session, fetchAcceptMessages, fetchMessages]);
 
+  // Everytime I have change the isAcceptingMessage value so this will call and reflect changes..
   const handleAcceptMessageSwitchChange = async () => {
     try {
       const res = await axios.post<ApiResponse>(`/api/accept-messages`, {
@@ -107,9 +105,11 @@ const Dashboard = () => {
       });
       setValue("acceptMessages", !acceptMessages);
       toast({
-        title : res.data.user?.isAcceptingMessage ? "Accepting" : "Denaing",
+        title: res.data.user?.isAcceptingMessage
+          ? "Messages Enabled"
+          : "Messages Disabled",
         description: res.data.message,
-        variant: "default",
+        variant: res.data.user?.isAcceptingMessage ? "default" : "destructive",
       });
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -129,7 +129,6 @@ const Dashboard = () => {
   }
 
   const { username } = session.user;
-
 
   // url
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
