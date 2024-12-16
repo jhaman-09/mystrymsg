@@ -1,4 +1,4 @@
-import AuthProvider from "../context/AuthProvider";
+import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 
