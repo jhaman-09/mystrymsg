@@ -63,8 +63,6 @@ const Singin = () => {
         variant: "default",
       });
       router.replace("/dashboard");
-    } else {
-      console.error("No URL found for redirection.");
     }
   };
 
@@ -86,9 +84,7 @@ const Singin = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
-                  <FormControl>
                     <Input placeholder="Enter email/username" {...field} />
-                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

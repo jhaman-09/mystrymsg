@@ -25,20 +25,27 @@ export async function GET() {
   const userId = new mongoose.Types.ObjectId(user._id);
 
   try {
+    // const foundUser = await UserModel.aggregate([
+    //   //   { $match: { _id: userId } },
+    //   //   { $unwind: "$messages" },
+    //   //   { $sort: { "messages.createdAt": -1 } },
+    //   //   { $group: { _id: "$_id", messages: { $push: "$messages" } } },
+    //   // ]).exec();
+    //   { $match: { _id: userId } },
+    //   {
+    //     $project: {
+    //       _id: 1,
+    //       messages: { $slice: [{ $arrayElemAt: ["$messages", 0] }, -1] }, // replace slice limit the array
+    //     },
+    //   },
+    //   // No need to unwind and group here unless additional fields are calculated.
+    // ]).exec();
+
     const foundUser = await UserModel.aggregate([
-      //   { $match: { _id: userId } },
-      //   { $unwind: "$messages" },
-      //   { $sort: { "messages.createdAt": -1 } },
-      //   { $group: { _id: "$_id", messages: { $push: "$messages" } } },
-      // ]).exec();
       { $match: { _id: userId } },
-      {
-        $project: {
-          _id: 1,
-          messages: { $slice: [{ $arrayElemAt: ["$messages", 0] }, -1] }, // replace slice limit the array
-        },
-      },
-      // No need to unwind and group here unless additional fields are calculated.
+      { $unwind: "$messages" },
+      { $sort: { "messages.createdAt": -1 } },
+      { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]).exec();
 
 

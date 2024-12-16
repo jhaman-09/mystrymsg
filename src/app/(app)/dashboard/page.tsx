@@ -64,6 +64,8 @@ const Dashboard = () => {
       try {
         const res = await axios.get<ApiResponse>(`/api/get-messages`);
         setMessages(res.data.messages || []);
+
+        console.log("All Messages", res.data.messages)
         if (refresh) {
           toast({
             title: "Refreshed messages",
