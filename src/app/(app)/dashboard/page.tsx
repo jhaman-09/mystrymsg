@@ -14,6 +14,7 @@ import { Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
 import { useRouter } from "next/navigation";
 import { acceptMessageSchema } from "@/Schema/acceptMessageSchema";
+import { User } from "next-auth";
 
 const Dashboard = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -65,7 +66,6 @@ const Dashboard = () => {
         const res = await axios.get<ApiResponse>(`/api/get-messages`);
         setMessages(res.data.messages || []);
 
-        console.log("All Messages", res.data.messages)
         if (refresh) {
           toast({
             title: "Refreshed messages",
@@ -91,7 +91,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!session || !session.user) {
-      router.replace("/signin"); // Redirect to sign-in page if not logged in
+      router.replace("/sign-in"); // Redirect to sign-in page if not logged in
       return;
     }
     fetchAllMessages();
@@ -125,11 +125,10 @@ const Dashboard = () => {
   };
 
   if (!session || !session.user) {
-    console.error("User or username is not defined in session.");
-    return <div>Please login</div>;
+    return <div></div>;
   }
-
-  const { username } = session.user;
+  
+  const { username } = session.user as User;
 
   // User url to message
   const baseUrl = `${window.location.protocol}//${window.location.host}`;

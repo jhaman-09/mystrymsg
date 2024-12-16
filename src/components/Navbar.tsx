@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { Button } from "./ui/button";
-import { useParams, usePathname } from "next/navigation"; // Import the usePathname hook
+import { usePathname } from "next/navigation"; // Import the usePathname hook
 
 const Navbar = () => {
   const { data: session } = useSession();
