@@ -40,8 +40,6 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProp) => {
       title: res.data.message,
     });
 
-    
-
     onMessageDelete(message._id);
   };
 
@@ -49,11 +47,11 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProp) => {
     <Card>
       <CardHeader>
         <div>
-          <CardTitle>{message.content}</CardTitle>
+          <CardTitle className="mb-5">{message.content}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">
-                <X className="w-5 h-5" />
+                <X className="w-3 h-3" />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
@@ -72,10 +70,10 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProp) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <CardDescription>Card Description</CardDescription>
+          {/* <CardDescription>Card Description</CardDescription> */}
         </div>
       </CardHeader>
-      <div className="text-sm">
+      <div className="text-sm pl-6">
         {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
       </div>
       <CardContent></CardContent>
