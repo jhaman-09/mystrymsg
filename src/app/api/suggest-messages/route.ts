@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
+// import { streamText } from "ai";
 
 // create an OpenAI API client {that;s edge friendly!}
 const openai = new OpenAI({
@@ -9,7 +10,7 @@ const openai = new OpenAI({
 
 export const runtime = "edge";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     // const { messages } = await req.json();
     const prompt =
