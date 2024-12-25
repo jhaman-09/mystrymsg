@@ -43,8 +43,12 @@ export const authOptions: NextAuthOptions = {
           } else {
             throw new Error("Incorrect Password..!");
           }
-        } catch (error: any) {
-          throw new Error(error);
+        } catch (error) {
+          if (error instanceof Error) {
+            throw new Error(error.message);
+          } else {
+            throw new Error("Something went wrong during authorization.");
+          }
         }
       },
     }),
